@@ -10,7 +10,6 @@ let imageHistory = [];
 
 function loadNewImage() {
   const url = "https://api.18xo.eu.org/random?type=img&t=" + Date.now();
-  img.classList.remove("loaded");
   img.src = url;
   img.dataset.src = url;
 
@@ -31,7 +30,6 @@ function renderThumbnails() {
     }
 
     thumb.onclick = () => {
-      img.classList.remove("loaded");
       img.src = url;
       img.dataset.src = url;
     };
@@ -64,10 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setInterval(loadNewImage, 5000);
   setInterval(updateTime, 1000);
 
-  img.addEventListener("load", () => {
-    img.classList.add("loaded");
-    renderThumbnails();
-  });
+  img.addEventListener("load", renderThumbnails);
 
   img.addEventListener("click", () => {
     img.classList.toggle("zoomed");
@@ -85,19 +80,19 @@ document.addEventListener("DOMContentLoaded", () => {
   toggleBtn.addEventListener("click", () => {
     document.body.classList.toggle("dark");
     toggleBtn.textContent = document.body.classList.contains("dark")
-      ? "☀️ 切换日间模式"
-      : "🌙 切换夜间模式";
+      ? "日间模式"
+      : "夜间模式";
   });
 
   toggleMusicBtn.addEventListener("click", () => {
     if (musicPlaying) {
       fadeVolume(bgMusic, bgMusic.volume, 0);
       setTimeout(() => bgMusic.pause(), 1000);
-      toggleMusicBtn.textContent = "🔇 播放音乐";
+      toggleMusicBtn.textContent = "播放音乐";
       localStorage.setItem("musicPlaying", "false");
     } else {
       bgMusic.play().then(() => fadeVolume(bgMusic, 0, 1));
-      toggleMusicBtn.textContent = "🔊 暂停音乐";
+      toggleMusicBtn.textContent = "暂停音乐";
       localStorage.setItem("musicPlaying", "true");
     }
     musicPlaying = !musicPlaying;
@@ -107,12 +102,12 @@ document.addEventListener("DOMContentLoaded", () => {
     musicPlaying = false;
     bgMusic.volume = 0;
     bgMusic.pause();
-    toggleMusicBtn.textContent = "🔇 播放音乐";
+    toggleMusicBtn.textContent = "播放音乐";
   } else {
     musicPlaying = true;
     bgMusic.volume = 1;
     bgMusic.play().catch(() => {});
-    toggleMusicBtn.textContent = "🔊 暂停音乐";
+    toggleMusicBtn.textContent = "暂停音乐";
   }
 
   document.addEventListener("contextmenu", e => e.preventDefault());
