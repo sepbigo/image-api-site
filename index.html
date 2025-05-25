@@ -7,21 +7,30 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <canvas id="background"></canvas> <!-- 粒子动画背景 -->
+
   <div class="header">
     <h1>每日一图 · 随机美图展示</h1>
+    <div class="controls">
+      <button id="toggleTheme">🌙 切换夜间模式</button>
+      <button id="toggleMusic">🔊 暂停音乐</button>
+    </div>
   </div>
 
   <div class="container">
     <img id="mainImage" alt="正在加载图片..." />
-    <div class="buttons">
-      <a id="downloadBtn" href="#" download="random-image.jpg">下载图片</a>
-    </div>
+    <div class="hint">💡 双击大图可下载原图</div>
   </div>
 
   <footer>
+    <p id="timeDisplay">当前时间：--:--:--</p>
     <p>图片来源：<a href="https://api.18xo.eu.org" target="_blank">春田花花疯人院随机图片API</a></p>
   </footer>
 
+  <!-- 背景音乐（自动播放 + 循环） -->
+  <audio id="bgMusic" src="https://example.com/background.mp3" loop autoplay preload="auto"></audio>
+
+  <script src="background.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
