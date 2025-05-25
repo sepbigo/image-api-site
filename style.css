@@ -1,108 +1,107 @@
 :root {
-  --bg-color: #ffffff;
-  --text-color: #333;
-  --hint-color: #888;
-  --link-color: #0077cc;
+  --bg-color: #f9f9f9;
+  --text-color: #222;
+  --link-color: #007acc;
 }
 
 body.dark {
-  --bg-color: #1a1a1a;
+  --bg-color: #111;
   --text-color: #ddd;
-  --hint-color: #aaa;
-  --link-color: #66b0ff;
+  --link-color: #66ccff;
 }
 
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: var(--bg-color);
+  font-family: "Segoe UI", sans-serif;
+  background: var(--bg-color);
   color: var(--text-color);
-  overflow: hidden;
-  position: relative;
-}
-
-#background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
+  transition: background 0.3s, color 0.3s;
+  overflow-x: hidden;
 }
 
 .header {
+  padding: 16px;
   text-align: center;
-  margin: 20px;
 }
 
-.header h1 {
-  font-size: 24px;
-  color: var(--link-color);
-}
-
-.controls {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-#toggleTheme, #toggleMusic {
+.controls button {
+  margin: 0 8px;
   padding: 6px 12px;
   font-size: 14px;
-  border: none;
-  background-color: var(--link-color);
-  color: #fff;
-  border-radius: 6px;
   cursor: pointer;
 }
 
 .container {
-  width: 100%;
-  max-width: 1920px;
-  max-height: 1080px;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 1920px;
+  margin: auto;
 }
 
 #mainImage {
-  width: 100%;
-  height: auto;
-  max-height: 90vh;
+  max-width: 100%;
+  max-height: 1080px;
+  transition: opacity 1s;
   cursor: zoom-in;
-  transition: transform 0.3s ease, opacity 1s ease;
-  opacity: 0;
   border-radius: 12px;
-  object-fit: contain;
-  background-color: #eee;
+}
+
+#mainImage.zoomed {
+  transform: scale(1.2);
+  cursor: zoom-out;
+}
+
+#mainImage:not(.loaded) {
+  opacity: 0;
 }
 
 #mainImage.loaded {
   opacity: 1;
 }
 
-#mainImage.zoomed {
-  transform: scale(1.5);
-  cursor: zoom-out;
-}
-
 .hint {
   margin-top: 10px;
   font-size: 14px;
-  color: var(--hint-color);
-  font-style: italic;
+  opacity: 0.8;
 }
 
 footer {
-  margin-top: 30px;
-  font-size: 14px;
-  color: var(--hint-color);
   text-align: center;
+  padding: 16px;
+  font-size: 14px;
+  opacity: 0.7;
 }
 
-footer a {
+a {
   color: var(--link-color);
-  text-decoration: none;
+}
+
+.thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.thumbnails img {
+  width: 100px;
+  height: auto;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  transition: transform 0.2s, border-color 0.3s;
+}
+
+.thumbnails img:hover {
+  transform: scale(1.05);
+  border-color: var(--link-color);
+}
+
+canvas#background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
