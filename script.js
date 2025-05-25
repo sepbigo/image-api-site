@@ -59,7 +59,7 @@ function fadeVolume(audio, from, to, duration = 1000) {
 document.addEventListener("DOMContentLoaded", () => {
   loadNewImage();
   updateTime();
-  setInterval(loadNewImage, 8000);
+  setInterval(loadNewImage, 5000);
   setInterval(updateTime, 1000);
 
   img.addEventListener("load", renderThumbnails);
