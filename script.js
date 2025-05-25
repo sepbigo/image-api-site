@@ -14,10 +14,8 @@ function loadNewImage() {
   img.src = url;
   img.dataset.src = url;
 
-  // 添加缩略图历史
   imageHistory.unshift(url);
-  if (imageHistory.length > 5) imageHistory.pop();
-  renderThumbnails();
+  if (imageHistory.length > 6) imageHistory.pop();
 }
 
 function renderThumbnails() {
@@ -27,11 +25,17 @@ function renderThumbnails() {
     const thumb = document.createElement("img");
     thumb.src = url;
     thumb.title = "点击切换此图";
+
+    if (url === img.dataset.src) {
+      thumb.classList.add("active");
+    }
+
     thumb.onclick = () => {
       img.classList.remove("loaded");
       img.src = url;
       img.dataset.src = url;
     };
+
     thumbnailContainer.appendChild(thumb);
   });
 }
@@ -62,6 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   img.addEventListener("load", () => {
     img.classList.add("loaded");
+    renderThumbnails();
   });
 
   img.addEventListener("click", () => {
