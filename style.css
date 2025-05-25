@@ -42,7 +42,7 @@ body {
 #mainImage {
   max-width: 100%;
   max-height: 1080px;
-  transition: opacity 1s, transform 0.3s;
+  transition: transform 0.3s;
   cursor: zoom-in;
   border-radius: 12px;
 }
@@ -50,14 +50,6 @@ body {
 #mainImage.zoomed {
   transform: scale(1.2);
   cursor: zoom-out;
-}
-
-#mainImage:not(.loaded) {
-  opacity: 0;
-}
-
-#mainImage.loaded {
-  opacity: 1;
 }
 
 .hint {
