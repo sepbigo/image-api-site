@@ -3,14 +3,37 @@ const toggleBtn = document.getElementById("toggleTheme");
 const toggleMusicBtn = document.getElementById("toggleMusic");
 const timeDisplay = document.getElementById("timeDisplay");
 const bgMusic = document.getElementById("bgMusic");
+const thumbnailContainer = document.getElementById("thumbnailContainer");
 
 let musicPlaying = true;
+let imageHistory = [];
 
 function loadNewImage() {
   const url = "https://api.18xo.eu.org/random?type=img&t=" + Date.now();
   img.classList.remove("loaded");
   img.src = url;
   img.dataset.src = url;
+
+  // 添加缩略图历史
+  imageHistory.unshift(url);
+  if (imageHistory.length > 5) imageHistory.pop();
+  renderThumbnails();
+}
+
+function renderThumbnails() {
+  thumbnailContainer.innerHTML = '';
+  imageHistory.forEach((url, index) => {
+    if (index === 0) return;
+    const thumb = document.createElement("img");
+    thumb.src = url;
+    thumb.title = "点击切换此图";
+    thumb.onclick = () => {
+      img.classList.remove("loaded");
+      img.src = url;
+      img.dataset.src = url;
+    };
+    thumbnailContainer.appendChild(thumb);
+  });
 }
 
 function updateTime() {
@@ -66,12 +89,26 @@ document.addEventListener("DOMContentLoaded", () => {
       fadeVolume(bgMusic, bgMusic.volume, 0);
       setTimeout(() => bgMusic.pause(), 1000);
       toggleMusicBtn.textContent = "🔇 播放音乐";
+      localStorage.setItem("musicPlaying", "false");
     } else {
       bgMusic.play().then(() => fadeVolume(bgMusic, 0, 1));
       toggleMusicBtn.textContent = "🔊 暂停音乐";
+      localStorage.setItem("musicPlaying", "true");
     }
     musicPlaying = !musicPlaying;
   });
+
+  if (localStorage.getItem("musicPlaying") === "false") {
+    musicPlaying = false;
+    bgMusic.volume = 0;
+    bgMusic.pause();
+    toggleMusicBtn.textContent = "🔇 播放音乐";
+  } else {
+    musicPlaying = true;
+    bgMusic.volume = 1;
+    bgMusic.play().catch(() => {});
+    toggleMusicBtn.textContent = "🔊 暂停音乐";
+  }
 
   document.addEventListener("contextmenu", e => e.preventDefault());
 });
