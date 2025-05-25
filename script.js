@@ -4,7 +4,7 @@ let zoomed = false;
 
 // 获取新图
 function fetchImage() {
-  fetch("https://api.18xo.eu.org/random?type=url")
+  fetch("https://api.18xo.eu.org/random?type=img")
     .then(res => res.text())
     .then(url => {
       img.classList.remove("loaded");
