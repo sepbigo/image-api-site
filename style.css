@@ -42,7 +42,7 @@ body {
 #mainImage {
   max-width: 100%;
   max-height: 1080px;
-  transition: opacity 1s;
+  transition: opacity 1s, transform 0.3s;
   cursor: zoom-in;
   border-radius: 12px;
 }
@@ -87,7 +87,9 @@ a {
 
 .thumbnails img {
   width: 100px;
-  height: auto;
+  height: 70px;
+  object-fit: cover;
+  object-position: center;
   cursor: pointer;
   border: 2px solid transparent;
   border-radius: 6px;
@@ -97,6 +99,12 @@ a {
 .thumbnails img:hover {
   transform: scale(1.05);
   border-color: var(--link-color);
+}
+
+.thumbnails img.active {
+  border-color: var(--link-color);
+  box-shadow: 0 0 8px var(--link-color);
+  transform: scale(1.05);
 }
 
 canvas#background {
