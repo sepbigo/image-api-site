@@ -20,19 +20,28 @@ function loadNewImage() {
 function renderThumbnails() {
   thumbnailContainer.innerHTML = '';
   imageHistory.forEach((url, index) => {
-    if (index === 0) return;
+    if (index === 0) return; // 当前显示的主图不重复显示为缩略图
     const thumb = document.createElement("img");
     thumb.src = url;
-    thumb.title = "点击切换此图";
 
-    if (url === img.dataset.src) {
-      thumb.classList.add("active");
-    }
-
+    // 点击：切换主图
     thumb.onclick = () => {
       img.src = url;
       img.dataset.src = url;
     };
+
+    // 双击：下载原图
+    thumb.ondblclick = () => {
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "wallpaper.jpg";
+      link.click();
+    };
+
+    // 高亮当前图
+    if (url === img.dataset.src) {
+      thumb.classList.add("active");
+    }
 
     thumbnailContainer.appendChild(thumb);
   });
