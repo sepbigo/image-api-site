@@ -4,6 +4,8 @@ const toggleMusicBtn = document.getElementById("toggleMusic");
 const timeDisplay = document.getElementById("timeDisplay");
 const bgMusic = document.getElementById("bgMusic");
 const thumbnailContainer = document.getElementById("thumbnailContainer");
+const resolutionDisplay = document.getElementById("resolutionDisplay");
+const downloadBtn = document.getElementById("downloadBtn");
 
 let musicPlaying = true;
 let imageHistory = [];
@@ -12,7 +14,6 @@ function loadNewImage() {
   const url = "https://api.18xo.eu.org/random?type=img&t=" + Date.now();
   img.src = url;
   img.dataset.src = url;
-
   imageHistory.unshift(url);
   if (imageHistory.length > 6) imageHistory.pop();
 }
@@ -23,17 +24,11 @@ function renderThumbnails() {
     if (index === 0) return;
     const thumb = document.createElement("img");
     thumb.src = url;
-    thumb.title = "点击切换此图";
-
-    if (url === img.dataset.src) {
-      thumb.classList.add("active");
-    }
-
+    if (url === img.dataset.src) thumb.classList.add("active");
     thumb.onclick = () => {
       img.src = url;
       img.dataset.src = url;
     };
-
     thumbnailContainer.appendChild(thumb);
   });
 }
@@ -62,9 +57,21 @@ document.addEventListener("DOMContentLoaded", () => {
   setInterval(loadNewImage, 5000);
   setInterval(updateTime, 1000);
 
-  img.addEventListener("load", renderThumbnails);
+  img.addEventListener("load", () => {
+    resolutionDisplay.textContent = `分辨率：${img.naturalWidth} × ${img.naturalHeight}`;
+    renderThumbnails();
+  });
 
   img.addEventListener("click", () => {
+    const link = document.createElement("a");
+    link.href = img.dataset.src;
+    link.download = "random-image.jpg";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  });
+
+  downloadBtn.addEventListener("click", () => {
     const link = document.createElement("a");
     link.href = img.dataset.src;
     link.download = "random-image.jpg";
