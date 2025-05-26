@@ -65,10 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
   img.addEventListener("load", renderThumbnails);
 
   img.addEventListener("click", () => {
-    img.classList.toggle("zoomed");
-  });
-
-  img.addEventListener("dblclick", () => {
     const link = document.createElement("a");
     link.href = img.dataset.src;
     link.download = "random-image.jpg";
