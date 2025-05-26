@@ -2,12 +2,14 @@
   --bg-color: #f9f9f9;
   --text-color: #222;
   --link-color: #007acc;
+  --button-color: #007bff;
 }
 
 body.dark {
   --bg-color: #111;
   --text-color: #ddd;
   --link-color: #66ccff;
+  --button-color: #3399ff;
 }
 
 body {
@@ -52,26 +54,34 @@ body {
   opacity: 0.8;
 }
 
-.resolution {
-  font-size: 14px;
-  margin-top: 8px;
-  opacity: 0.9;
+.image-info {
+  margin-top: 12px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#resolution {
+  font-size: 16px;
+  font-weight: bold;
 }
 
 #downloadBtn {
-  margin-top: 10px;
-  padding: 6px 12px;
-  font-size: 14px;
-  cursor: pointer;
-  background: var(--link-color);
-  color: #fff;
+  background-color: var(--button-color);
+  color: white;
   border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
   border-radius: 6px;
+  cursor: pointer;
   transition: background 0.3s;
 }
 
 #downloadBtn:hover {
-  background: #005fa3;
+  background-color: #0056b3;
 }
 
 footer {
@@ -97,6 +107,7 @@ a {
   width: 100px;
   height: 70px;
   object-fit: cover;
+  object-position: center;
   cursor: pointer;
   border: 2px solid transparent;
   border-radius: 6px;
