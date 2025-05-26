@@ -2,10 +2,10 @@ const img = document.getElementById("mainImage");
 const toggleBtn = document.getElementById("toggleTheme");
 const toggleMusicBtn = document.getElementById("toggleMusic");
 const timeDisplay = document.getElementById("timeDisplay");
+const resolutionDisplay = document.getElementById("resolution");
+const downloadBtn = document.getElementById("downloadBtn");
 const bgMusic = document.getElementById("bgMusic");
 const thumbnailContainer = document.getElementById("thumbnailContainer");
-const resolutionDisplay = document.getElementById("resolutionDisplay");
-const downloadBtn = document.getElementById("downloadBtn");
 
 let musicPlaying = true;
 let imageHistory = [];
@@ -24,13 +24,20 @@ function renderThumbnails() {
     if (index === 0) return;
     const thumb = document.createElement("img");
     thumb.src = url;
-    if (url === img.dataset.src) thumb.classList.add("active");
+    thumb.title = "点击切换此图";
+    if (url === img.dataset.src) {
+      thumb.classList.add("active");
+    }
     thumb.onclick = () => {
       img.src = url;
       img.dataset.src = url;
     };
     thumbnailContainer.appendChild(thumb);
   });
+}
+
+function updateResolution() {
+  resolutionDisplay.textContent = `分辨率：${img.naturalWidth} x ${img.naturalHeight}`;
 }
 
 function updateTime() {
@@ -58,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setInterval(updateTime, 1000);
 
   img.addEventListener("load", () => {
-    resolutionDisplay.textContent = `分辨率：${img.naturalWidth} × ${img.naturalHeight}`;
+    updateResolution();
     renderThumbnails();
   });
 
